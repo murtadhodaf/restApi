@@ -19,6 +19,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/pengguna', [penggunasController::class, 'index']);
-Route::post('/pengguna', [penggunasController::class, 'store']);
-Route::put('/pengguna/{id}', [penggunasController::class, 'update']);
+// Route::get('/pengguna', [penggunasController::class, 'index']);
+// Route::post('/pengguna', [penggunasController::class, 'store']);
+// Route::get('/pengguna/{id}', [penggunasController::class, 'show']);
+// Route::put('/pengguna/{id}', [penggunasController::class, 'update']);
+// Route::delete('/pengguna/{id}', [penggunasController::class, 'destroy']);
+
+route::resource('/pengguna', penggunasController::class)->except(['create', 'edit']);

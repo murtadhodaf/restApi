@@ -114,17 +114,14 @@ class penggunasController extends Controller
     public function update(Request $request, $id)
     {
         $pengguna = pengguna::findOrFail($id);
-
         $validator = validator::make($request->all(), [
             'username'=>['required', 'min:3'],
             'password'=>['required', 'min:7'],
             'name'=>['required', 'min:3'],
         ]);
-
         if($validator->fails()){
             return response()->json($validator->errors(), Response::HTTP_UNPROCESSABLE_ENTITY);
         };
-
         
         try {
             $pengguna->update($request->all());
@@ -132,8 +129,6 @@ class penggunasController extends Controller
                 'message'=> 'Pengguna Berhasil diupdate',
                 'data'=>$pengguna
             ];
-
-
             return response()->json($response, Response::HTTP_OK);
         } catch (QueryException $object) {
             return response()->json([
@@ -151,6 +146,22 @@ class penggunasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pengguna = pengguna::findOrFail($id);
+        
+        try {
+            $pengguna->delete();
+            $response = [
+                'message'=> 'Pengguna Berhasil dihapus'
+                
+            ];
+
+
+            return response()->json($response, Response::HTTP_OK);
+        } catch (QueryException $object) {
+            return response()->json([
+                'message'=>'failed'. $object->errorInfo
+            ]);
+        
+        }
     }
 }
