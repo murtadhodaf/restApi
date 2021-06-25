@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\penggunasController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/pengguna', [penggunasController::class, 'index']);
+Route::post('/pengguna', [penggunasController::class, 'store']);
+Route::put('/pengguna/{id}', [penggunasController::class, 'update']);
